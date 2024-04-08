@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: tomato;
+    font-size: 120px;
+}
+
+input {
+    font-size: 28px;
+    padding: 20px;
+    width: 600px;
+    min-width: 400px;
+    border: 2px solid #9d9d9d;
+}
+
+input:focus {
+    outline: none;
+}
+
+.list > .item {
+    font-size: 28px;
+    padding: 20px;
+    width: 600px;
+    min-width: 400px;
+    border-left: 2px solid #9d9d9d;
+    border-right: 2px solid #9d9d9d;
+    border-bottom: 2px solid #9d9d9d;
+    cursor: pointer;
+}
+
+.list > .item.completed {
+    text-decoration: line-through;
+    color: #9d9d9d;
+}
+
+.guide {
+    margin-top: 40px;
+    color: #9d9d9d;
+    font-size: 18px;
+}
+
+.copyright {
+    font-size: 18px;
+    color: #9d9d9d;
+    bottom: 0;
+    left: 50%;
+    margin-top: 5px;
+}
