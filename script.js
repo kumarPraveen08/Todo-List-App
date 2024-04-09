@@ -1,31 +1,66 @@
 let list = document.querySelector(".list");
 let form = document.getElementById("form");
 let input = document.getElementById("input");
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+if (todos.length > 0) {
+  todos.forEach((todo) => {
+    appendItem(todo);
+  });
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  let item = { text: input.value, completed: false };
+  let todo = { text: input.value, completed: false };
+
+  todos.push(todo);
+  storeItem(todos);
 
   input.value = "";
 
-  const div = document.createElement("div");
-  div.classList.add("item");
-  if (item.completed) div.classList.add("completed");
-  div.textContent = item.text;
-  list.appendChild(div);
+  appendItem(todo);
+});
 
-  div.addEventListener("click", () => {
-    if (item.completed) {
-      div.classList.remove("completed");
-      item.completed = false;
+function appendItem(todo) {
+  const item = document.createElement("div");
+  item.classList.add("item");
+  if (todo.completed) item.classList.add("completed");
+  item.textContent = todo.text;
+  list.appendChild(item);
+
+  listStatus(item, todo);
+  removeItem(item, todo);
+}
+
+function listStatus(item, todo) {
+  item.addEventListener("click", () => {
+    if (todo.completed) {
+      item.classList.remove("completed");
+      todo.completed = false;
+      updateComplete(todo, false);
     } else {
-      div.classList.add("completed");
-      item.completed = true;
+      item.classList.add("completed");
+      todo.completed = true;
+      updateComplete(todo, true);
     }
   });
+}
 
-  div.addEventListener("contextmenu", (e) => {
+function updateComplete(todo, status) {
+  let index = todos.indexOf(todo);
+  todos[index].completed = status;
+  storeItem(todos);
+}
+
+function storeItem(todos) {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function removeItem(item, todo) {
+  item.addEventListener("contextmenu", (e) => {
     e.preventDefault();
-    div.remove();
+    item.remove();
+    todos = todos.filter((t) => t !== todo);
+    storeItem(todos);
   });
-});
+}
