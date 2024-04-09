@@ -11,14 +11,16 @@ if (todos.length > 0) {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  let todo = { text: input.value, completed: false };
+  if (input.value.length > 0) {
+    let todo = { text: input.value, completed: false };
 
-  todos.push(todo);
-  storeItem(todos);
+    todos.push(todo);
+    storeItem(todos);
 
-  input.value = "";
+    input.value = "";
 
-  appendItem(todo);
+    appendItem(todo);
+  }
 });
 
 function appendItem(todo) {
